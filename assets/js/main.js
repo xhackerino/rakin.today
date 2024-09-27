@@ -5,15 +5,15 @@ const translations = {
         hello: "👋 Hello!",
         homepage: "This is the homepage of",
         contactMe: "💬 Contact Me",
-        mail: "📩 Email",
-        corporate: "🎓 Corporate Email",
-        telegram: "📩 Telegram (Business only)",
+        mail: "📧 Email",
+        corporate: "🎓 Corporate email",
+        telegram: "💌 Telegram",
         seeAlso: "👀 See Also",
         linkedIn: "💻 LinkedIn",
         gitHub: "👨‍💻 GitHub",
         wallets: "💰 Wallets",
-        currentlyListening: "Currently listening to: 🎵 Checking Apple Music...",
         statusPrefix: "Right now I’m:",
+        checkingStatus: "⏳ Checking the status...",
         statusMessages: {
             SLEEPING: "💤 Sleeping...",
             BUSY: "⚠️ Busy. ⛔ Do Not Disturb",
@@ -28,15 +28,15 @@ const translations = {
         hello: "👋 Tervetuloa!",
         homepage: "Tämä on ",
         contactMe: "💬 Ota Yhteyttä",
-        mail: "📩 Sähköposti",
+        mail: "📧 Sähköposti",
         corporate: "🎓 Yrityssähköposti",
-        telegram: "📩 Telegramissa",
+        telegram: "💌 Telegramissa",
         seeAlso: "👀 Katso Myös",
         linkedIn: "💻 LinkedIn:ssä",
         gitHub: "👨‍💻 GitHubissa",
         wallets: "💰 Lompakot",
-        currentlyListening: "Tällä hetkellä kuunnellaan: 🎵 Tarkistetaan Apple Music...",
         statusPrefix: "Tällä hetkellä olen:",
+        checkingStatus: "⏳ Tarkistetaan tilanne...",
         statusMessages: {
             SLEEPING: "💤 Nukkumassa...",
             BUSY: "⚠️ Kiireinen. ⛔ Älä häiritse",
@@ -46,6 +46,29 @@ const translations = {
         },
         footerGreetings: "Terveisiä",
         footerCopyright: "© Rakin Ilia"
+    },
+    ru: {
+        hello: "👋 Привет!",
+        homepage: "Это сайт-визитка у ",
+        contactMe: "💬 Свяжитесь со мной",
+        mail: "📧 Личная почта",
+        corporate: "🎓 Корпоративная почта",
+        telegram: "💌 Телеграм",
+        seeAlso: "👀 Также смотрите",
+        linkedIn: "💻 LinkedIn",
+        gitHub: "👨‍💻 GitHub",
+        wallets: "💰 Кошельки",
+        statusPrefix: "Сейчас я:",
+        checkingStatus: "⏳ Проверяю статус...",
+        statusMessages: {
+            SLEEPING: "💤 Сплю...",
+            BUSY: "⚠️ Занят. ⛔ Не беспокоить",
+            AVAILABLE: "✅ Доступен для сообщений, но звонки не принимаю 📵",
+            WEEKEND: "✨ На выходных. 📳 Наслаждаюсь жизнью 🏞️",
+            HOLIDAY: "🎉 На отдыхе с семьей!"
+        },
+        footerGreetings: "Передаю привет",
+        footerCopyright: "© Илья Ракин"
     }
 };
 
@@ -64,19 +87,23 @@ function switchLanguage(lang) {
     document.querySelector("#song-status").textContent = translations[lang].currentlyListening;
     document.querySelector("#status-prefix").textContent = translations[lang].statusPrefix;
 
+    document.querySelector("#status").textContent = translations[lang].checkingStatus;
+
     document.querySelector(".footer-greetings").textContent = translations[lang].footerGreetings;
     document.querySelector(".footer-copyright").textContent = translations[lang].footerCopyright;
 
-    updateStatusMessage(lang);
+    setTimeout(() => {
+        updateStatusMessage(lang);
+    }, 1000);
 }
 
 function updateStatusMessage(lang) {
     const currentHour = new Date().getHours();
     let status = "";
 
-    if (currentHour >= 22 || currentHour < 7) {
+    if (currentHour >= 23 || currentHour < 9) {
         status = translations[lang].statusMessages.SLEEPING;
-    } else if (currentHour >= 7 && currentHour < 18) {
+    } else if (currentHour >= 9 && currentHour < 17) {
         status = translations[lang].statusMessages.BUSY;
     } else {
         status = translations[lang].statusMessages.AVAILABLE;
@@ -178,12 +205,6 @@ const range = (start, end, base, value) => {
     );
 };
 
-const SLEEPING = "💤 Sleeping...";
-const BUSY = "⚠️ Busy. ⛔ Do Not Disturb";
-const AVAILABLE = "✅ Available for messaging, calls will be declined 📵";
-const WEEKEND = "✨ On a weekend. 📳 Enjoying real life 🏞️";
-const HOLIDAY = "🎉 On a holiday celebration with my family!";
-
 // Function to calculate Easter
 function calculateEaster(year) {
     const f = Math.floor,
@@ -201,7 +222,37 @@ function calculateEaster(year) {
 
 const fixedHolidays = {
     '01-01': 'Feast of the Circumcision of Christ (New Year\'s Day)',
-    // Other fixed holidays
+    '01-06': 'Epiphany',
+    '02-14': 'Valentine\'s Day',
+    '03-08': 'International Women\'s Day',
+    '03-14': 'Pi Day',
+    '03-17': 'St. Patrick\'s Day',
+    '04-01': 'April Fools\' Day',
+    '04-07': 'World Health Day',
+    '04-22': 'Earth Day',
+    '05-01': 'International Workers\' Day',
+    '05-04': 'Star Wars Day',
+    '05-09': 'Europe Day',
+    '05-12': 'International Nurses Day',
+    '05-25': 'Towel Day',
+    '06-01': 'International Children\'s Day',
+    '06-05': 'World Environment Day',
+    '06-12': 'World Day Against Child Labour',
+    '06-21': 'Summer Solstice',
+    '07-04': 'Independence Day',
+    '07-14': 'Bastille Day',
+    '08-15': 'Assumption of Mary',
+    '09-08': 'International Literacy Day',
+    '09-21': 'International Day of Peace',
+    '10-04': 'World Animal Day',
+    '10-31': 'Halloween',
+    '11-01': 'All Saints\' Day',
+    '11-11': 'Veterans Day',
+    '11-20': 'Universal Children\'s Day',
+    '11-22': 'Thanksgiving',
+    '12-06': 'St. Nicholas Day',
+    '12-24': 'Christmas Eve',
+    '12-25': 'Christmas Day',
     '12-29': 'my Dad\'s Birthday',
     '12-31': 'New Year\'s Eve',
 };
@@ -261,42 +312,6 @@ setInterval(() => {
     }
 }, 1000);
 
-// Music status logic
-const songs = [
-    { title: "Freestyle", artist: "Lil Baby" },
-    { title: "THANK GOD", artist: "Travis Scott" },
-    { title: "Gang Gang", artist: "Polo G" },
-    { title: "The Woo", artist: "Pop Smoke" },
-    { title: "For The Night", artist: "Pop Smoke" },
-    // ... (rest of the song list)
-];
-
-let currentSongIndex = 0;
-
-function getRandomSong() {
-    const randomSongIndex = Math.floor(Math.random() * songs.length);
-    return songs[randomSongIndex];
-}
-
-function updateSongStatus() {
-    const now = new Date();
-    const hour = now.getUTCHours() + 3;
-    const day = now.getUTCDay();
-    const songStatusElement = document.querySelector("#song-status");
-
-    if (hour >= 11 && hour < 19 && day !== 0) {
-        const currentSong = getRandomSong();
-        songStatusElement.textContent = `🎧 ${currentSong.title} by ${currentSong.artist}`;
-    } else {
-        songStatusElement.textContent = "🔇 Not playing any song at the moment";
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(updateSongStatus, 1000); // Update after 1-second delay
-    setInterval(updateSongStatus, 240000); // Update every 4 minutes
-});
-
 // Copy wallet addresses to clipboard
 const copyElements = document.querySelectorAll(".copy");
 
@@ -323,10 +338,6 @@ for (const link of contactLinks) {
         }
     });
 }
-
-// Set the year in the footer
-const yearSpan = document.querySelector("#year");
-yearSpan.textContent = now().getUTCFullYear();
 
 // Banner logic for showing and hiding images
 const showBanner = () => {
