@@ -141,7 +141,6 @@ nameClickable.addEventListener('click', () => {
     banner.classList.toggle('show');
 });
 
-// Hide banner when clicking outside the image
 banner.addEventListener('click', (event) => {
     if (event.target === banner) {
         banner.classList.remove('show');
@@ -260,11 +259,9 @@ setInterval(() => {
     const dayOfWeek = currentDate.getUTCDay();
     const hour = currentDate.getUTCHours() + 3;
 
-    // Check if today is a holiday
     if (holidays[formattedDate]) {
-        statusContainer.textContent = `${HOLIDAY} Today is ${holidays[formattedDate]} 👨‍👩‍👧‍👦`;
+        statusContainer.textContent = `${translations.en.statusMessages.HOLIDAY} Today is ${holidays[formattedDate]} 👨‍👩‍👧‍👦`;
     } else {
-        // Existing schedule logic
         const status = schedule[dayOfWeek][hour];
         if (status !== statusContainer.textContent) {
             statusContainer.textContent = status.message;
@@ -272,25 +269,25 @@ setInterval(() => {
     }
 }, 1000);
 
-
-// Popup functionality
-const showPopup = (() => {
-    let timeoutId = null;
-    const popup = document.querySelector(".popup");
-    const popupText = document.querySelector(".popup-text");
-
-    return (content, isError = false, durationMs = 3000) => {
-        clearTimeout(timeoutId);
-
-        popupText.textContent = content;
-        popup.classList.toggle("error", isError);
-        popup.classList.add("show");
-
-        timeoutId = setTimeout(() => popup.classList.remove("show"), durationMs);
-    };
-})();
-
 document.addEventListener("DOMContentLoaded", () => {
+    // Popup functionality
+    const showPopup = (() => {
+        let timeoutId = null;
+        const popup = document.querySelector(".popup");
+        const popupText = document.querySelector(".popup-text");
+
+        return (content, isError = false, durationMs = 3000) => {
+            clearTimeout(timeoutId);
+            popupText.textContent = content;
+            popup.classList.toggle("error", isError);
+            popup.classList.add("show");
+
+            timeoutId = setTimeout(() => {
+                popup.classList.remove("show");
+            }, durationMs);
+        };
+    })();
+
     // Copy wallet addresses to clipboard
     const copyElements = document.querySelectorAll(".copy");
 
@@ -301,8 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .catch(err => console.error("Copy failed:", err));
         });
     }
-
-    // Additional code for your other features can go here...
 
     // Block contact links when status is Do Not Disturb
     const contactLinks = document.querySelectorAll(".contact");
@@ -321,20 +316,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Banner logic for showing and hiding images
-    const nameClickable = document.getElementById('name-clickable');
-    const banner = document.querySelector('.banner');
+    // Banner toggle logic
     const bannerButton = document.querySelector(".show-banner");
+    const banner = document.querySelector(".banner");
 
-    nameClickable.addEventListener('click', () => {
-        banner.classList.toggle('show');
-    });
+    const showBanner = () => {
+        banner.classList.add("show");
+    };
+
+    const hideBanner = () => {
+        banner.classList.remove("show");
+    };
+
+    bannerButton.addEventListener("click", showBanner);
 
     banner.addEventListener("click", (event) => {
-        if (event.target === banner) {
-            banner.classList.remove("show");
-        }
+        if (event.target === banner) hideBanner();
     });
-
-    bannerButton.addEventListener("click", () => banner.classList.add("show"));
 });
