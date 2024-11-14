@@ -154,39 +154,17 @@ const showPopup = (() => {
     const popup = document.querySelector(".popup");
     const popupText = document.querySelector(".popup-text");
 
-    const animation = [
-        { opacity: 1, offset: 0 },
-        { opacity: 0, offset: 0.4 },
-        { opacity: 0, offset: 0.6 },
-        { opacity: 1, offset: 1 },
-    ];
-
-    const sleep = async (ms) => new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-
-    return async (content, isError = false, durationMs = 3000) => {
-        if (timeoutId !== null) {
-            clearTimeout(timeoutId);
-            popupText.animate(animation, 300);
-            await sleep(150);
-        }
+    return (content, isError = false, durationMs = 3000) => {
+        clearTimeout(timeoutId);
 
         popupText.textContent = content;
-
-        if (isError) {
-            popup.classList.add("error");
-        } else {
-            popup.classList.remove("error");
-        }
-
-        await sleep(10);
-
+        popup.classList.toggle("error", isError);
         popup.classList.add("show");
 
         timeoutId = setTimeout(() => popup.classList.remove("show"), durationMs);
     };
 })();
+
 
 // Schedule and Status logic
 const now = () => new Date();
