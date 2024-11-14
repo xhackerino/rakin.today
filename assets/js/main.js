@@ -278,10 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return (content, isError = false, durationMs = 3000) => {
             clearTimeout(timeoutId);
+
             popupText.textContent = content;
+
+            // Toggle the error class based on isError flag
             popup.classList.toggle("error", isError);
+
+            // Show the popup by adding the .show class
             popup.classList.add("show");
 
+            // Hide the popup after durationMs
             timeoutId = setTimeout(() => {
                 popup.classList.remove("show");
             }, durationMs);
