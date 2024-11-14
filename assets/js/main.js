@@ -11,6 +11,8 @@ const translations = {
         seeAlso: "👀 See Also",
         linkedIn: "💻 LinkedIn",
         gitHub: "👨‍💻 GitHub",
+        portfolio: "💼 Portfolio",
+        holdings: "📈 Holdings",
         wallets: "💰 Wallets",
         statusPrefix: "Right now I’m:",
         checkingStatus: "⏳ Checking the status...",
@@ -34,6 +36,8 @@ const translations = {
         seeAlso: "👀 Katso Myös",
         linkedIn: "💻 LinkedIn:ssä",
         gitHub: "👨‍💻 GitHubissa",
+        portfolio: "💼 Salkku",
+        holdings: "📈 Pääoma",
         wallets: "💰 Lompakot",
         statusPrefix: "Tällä hetkellä olen:",
         checkingStatus: "⏳ Tarkistetaan tilanne...",
@@ -57,6 +61,8 @@ const translations = {
         seeAlso: "👀 Также смотрите",
         linkedIn: "💻 LinkedIn",
         gitHub: "👨‍💻 GitHub",
+        portfolio: "💼 Портфель",
+        holdings: "📈 Активы",
         wallets: "💰 Кошельки",
         statusPrefix: "Сейчас я:",
         checkingStatus: "⏳ Проверяю статус...",
@@ -69,6 +75,31 @@ const translations = {
         },
         footerGreetings: "Передаю привет",
         footerCopyright: "© Илья Ракин"
+    },
+    de: {
+        hello: "👋 Hallo!",
+        homepage: "Dies ist die Homepage von",
+        contactMe: "💬 Kontaktiere mich",
+        mail: "📧 E-Mail",
+        corporate: "🎓 Firmen-E-Mail",
+        telegram: "💌 Telegram",
+        seeAlso: "👀 Siehe auch",
+        linkedIn: "💻 LinkedIn",
+        gitHub: "👨‍💻 GitHub",
+        portfolio: "💼 Portfolio",
+        holdings: "📈 Beteiligungen",
+        wallets: "💰 Wallets",
+        statusPrefix: "Zurzeit bin ich:",
+        checkingStatus: "⏳ Status wird überprüft...",
+        statusMessages: {
+            SLEEPING: "💤 Schläft...",
+            BUSY: "⚠️ Beschäftigt. ⛔ Nicht stören",
+            AVAILABLE: "✅ Verfügbar für Nachrichten, Anrufe werden abgelehnt 📵",
+            WEEKEND: "✨ Am Wochenende. 📳 Genieße das echte Leben 🏞️",
+            HOLIDAY: "🎉 Feiert mit der Familie!"
+        },
+        footerGreetings: "Grüße an",
+        footerCopyright: "© Rakin Ilia"
     }
 };
 
@@ -83,6 +114,8 @@ function switchLanguage(lang) {
     document.querySelector("h2.see-also").textContent = translations[lang].seeAlso;
     document.querySelector("span.linkedIn-label").textContent = translations[lang].linkedIn + ":";
     document.querySelector("span.github-label").textContent = translations[lang].gitHub + ":";
+    document.querySelector("h2.portfolio").textContent = translations[lang].portfolio + ":";
+    document.querySelector("span.holdings").textContent = translations[lang].holdings + ":";
     document.querySelector("h2.wallets").textContent = translations[lang].wallets;
     document.querySelector("#song-status").textContent = translations[lang].currentlyListening;
     document.querySelector("#status-prefix").textContent = translations[lang].statusPrefix;
