@@ -148,24 +148,6 @@ banner.addEventListener('click', (event) => {
     }
 });
 
-// Popup functionality
-const showPopup = (() => {
-    let timeoutId = null;
-    const popup = document.querySelector(".popup");
-    const popupText = document.querySelector(".popup-text");
-
-    return (content, isError = false, durationMs = 3000) => {
-        clearTimeout(timeoutId);
-
-        popupText.textContent = content;
-        popup.classList.toggle("error", isError);
-        popup.classList.add("show");
-
-        timeoutId = setTimeout(() => popup.classList.remove("show"), durationMs);
-    };
-})();
-
-
 // Schedule and Status logic
 const now = () => new Date();
 
@@ -173,12 +155,12 @@ const year = now().getUTCFullYear();
 
 const range = (start, end, base, value) => {
     const keys = Array.from(
-        { length: end - start + 1 },
+        {length: end - start + 1},
         (_, i) => (start + i) % base
     );
 
     return keys.reduce(
-        (acc, cur) => ({ ...acc, [cur]: value }),
+        (acc, cur) => ({...acc, [cur]: value}),
         {}
     );
 };
@@ -240,7 +222,7 @@ const movableHolidays = {
 };
 
 // Combine fixed and movable holidays
-const holidays = { ...fixedHolidays, ...movableHolidays };
+const holidays = {...fixedHolidays, ...movableHolidays};
 
 const schedule = {
     ...range(1, 5, 7, {
@@ -290,48 +272,69 @@ setInterval(() => {
     }
 }, 1000);
 
-// Copy wallet addresses to clipboard
-const copyElements = document.querySelectorAll(".copy");
 
-for (const element of copyElements) {
-    element.addEventListener("click", () => {
-        navigator.clipboard.writeText(element.textContent.trim());
-        showPopup("Address copied to clipboard!");
+// Popup functionality
+const showPopup = (() => {
+    let timeoutId = null;
+    const popup = document.querySelector(".popup");
+    const popupText = document.querySelector(".popup-text");
+
+    return (content, isError = false, durationMs = 3000) => {
+        clearTimeout(timeoutId);
+
+        popupText.textContent = content;
+        popup.classList.toggle("error", isError);
+        popup.classList.add("show");
+
+        timeoutId = setTimeout(() => popup.classList.remove("show"), durationMs);
+    };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Copy wallet addresses to clipboard
+    const copyElements = document.querySelectorAll(".copy");
+
+    for (const element of copyElements) {
+        element.addEventListener("click", () => {
+            navigator.clipboard.writeText(element.textContent.trim())
+                .then(() => showPopup("Address copied to clipboard!"))
+                .catch(err => console.error("Copy failed:", err));
+        });
+    }
+
+    // Additional code for your other features can go here...
+
+    // Block contact links when status is Do Not Disturb
+    const contactLinks = document.querySelectorAll(".contact");
+
+    for (const link of contactLinks) {
+        link.addEventListener("click", (event) => {
+            const day = now().getUTCDay();
+            const hour = now().getUTCHours() + 3;
+
+            const status = schedule[day][hour];
+
+            if (status.dnd) {
+                event.preventDefault();
+                showPopup("Please, contact me later. I'm sleeping", true);
+            }
+        });
+    }
+
+    // Banner logic for showing and hiding images
+    const nameClickable = document.getElementById('name-clickable');
+    const banner = document.querySelector('.banner');
+    const bannerButton = document.querySelector(".show-banner");
+
+    nameClickable.addEventListener('click', () => {
+        banner.classList.toggle('show');
     });
-}
 
-// Block contact links when status is Do Not Disturb
-const contactLinks = document.querySelectorAll(".contact");
-
-for (const link of contactLinks) {
-    link.addEventListener("click", (event) => {
-        const day = now().getUTCDay();
-        const hour = now().getUTCHours() + 3;
-
-        const status = schedule[day][hour];
-
-        if (status.dnd) {
-            event.preventDefault();
-            showPopup("Please, contact me later. I'm sleeping", true);
+    banner.addEventListener("click", (event) => {
+        if (event.target === banner) {
+            banner.classList.remove("show");
         }
     });
-}
 
-// Banner logic for showing and hiding images
-const showBanner = () => {
-    banner.classList.add("show");
-};
-
-const hideBanner = () => {
-    banner.classList.remove("show");
-};
-
-banner.addEventListener("click", (event) => {
-    if (event.target === banner) {
-        hideBanner();
-    }
+    bannerButton.addEventListener("click", () => banner.classList.add("show"));
 });
-
-const bannerButton = document.querySelector(".show-banner");
-
-bannerButton.addEventListener("click", () => showBanner());
