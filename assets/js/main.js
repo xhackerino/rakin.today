@@ -281,29 +281,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
             popupText.textContent = content;
 
-            // Toggle the error class based on isError flag
+            // Toggle error styling based on isError flag
             popup.classList.toggle("error", isError);
 
             // Show the popup by adding the .show class
             popup.classList.add("show");
 
-            // Hide the popup after durationMs
+            // Hide the popup after the specified duration
             timeoutId = setTimeout(() => {
                 popup.classList.remove("show");
             }, durationMs);
         };
     })();
 
-    // Copy wallet addresses to clipboard
+    // Copy-to-clipboard functionality for elements with .copy class
     const copyElements = document.querySelectorAll(".copy");
 
-    for (const element of copyElements) {
+    copyElements.forEach(element => {
         element.addEventListener("click", () => {
-            navigator.clipboard.writeText(element.textContent.trim())
-                .then(() => showPopup("Address copied to clipboard!"))
-                .catch(err => console.error("Copy failed:", err));
+            const textToCopy = element.textContent.trim();
+
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Show success popup
+                    showPopup("Address copied to clipboard!");
+                })
+                .catch(err => {
+                    // Show error popup if copy fails
+                    console.error("Copy failed:", err);
+                    showPopup("Failed to copy", true);
+                });
         });
-    }
+    });
 
     // Block contact links when status is Do Not Disturb
     const contactLinks = document.querySelectorAll(".contact");
