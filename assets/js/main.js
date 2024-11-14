@@ -23,7 +23,7 @@ const translations = {
             WEEKEND: "✨ On a weekend. 📳 Enjoying real life 🏞️",
             HOLIDAY: "🎉 On a holiday celebration with my family!"
         },
-        footerGreetings: "Greetings to",
+        footerGreetings: "🇫🇮 Made in Finland",
         footerCopyright: "© Rakin Ilia"
     },
     fi: {
@@ -48,7 +48,7 @@ const translations = {
             WEEKEND: "✨ Viikonloppu. 📳 Nauttii oikeasta elämästä 🏞️",
             HOLIDAY: "🎉 Lomalla perheen kanssa!"
         },
-        footerGreetings: "Terveisiä",
+        footerGreetings: "🇫🇮 Valmistettu Suomessa",
         footerCopyright: "© Rakin Ilia"
     },
     ru: {
@@ -73,7 +73,7 @@ const translations = {
             WEEKEND: "✨ На выходных. 📳 Наслаждаюсь жизнью 🏞️",
             HOLIDAY: "🎉 На отдыхе с семьей!"
         },
-        footerGreetings: "Передаю привет",
+        footerGreetings: "🇫🇮 Сделано в Финляндии",
         footerCopyright: "© Илья Ракин"
     },
     de: {
@@ -98,7 +98,7 @@ const translations = {
             WEEKEND: "✨ Am Wochenende. 📳 Genieße das echte Leben 🏞️",
             HOLIDAY: "🎉 Feiert mit der Familie!"
         },
-        footerGreetings: "Grüße an",
+        footerGreetings: "🇫🇮 Hergestellt in Finnland",
         footerCopyright: "© Rakin Ilia"
     }
 };
