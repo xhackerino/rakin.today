@@ -4,11 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rakin's CV</title>
+    <style>
+        .alert {
+            text-align: center;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            position: relative;
+        }
+        .alert button {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            border: none;
+            background: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .alert.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<p style="text-align: center;">If the PDF doesn't load, <a href="/cv.pdf" target="_blank">click here to view it</a>.</p>
+<div class="alert" id="alertBanner">
+    <p>If CV doesn't load, <a href="/cv.pdf" target="_blank">click here to view it</a>.</p>
+    <button onclick="closeAlert()">×</button>
+</div>
 <iframe src="/cv.pdf" style="width: 100%; height: 100vh; border: none;">
     Your browser does not support PDF viewing. <a href="/cv.pdf">Download the CV</a>.
 </iframe>
+
+<script>
+    function closeAlert() {
+        document.getElementById('alertBanner').classList.add('hidden');
+    }
+</script>
 </body>
 </html>
