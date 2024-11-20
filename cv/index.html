@@ -6,21 +6,28 @@
     <title>Rakin's CV</title>
     <style>
         .alert {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: #f8f9fa;
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 5px 10px;
             margin: 10px;
+            font-size: 14px;
             position: relative;
+            line-height: 1.5;
         }
         .alert button {
             position: absolute;
-            top: 5px;
             right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             border: none;
             background: none;
             font-size: 16px;
             cursor: pointer;
+            padding: 0;
+            line-height: 1;
         }
         .alert.hidden {
             display: none;
@@ -29,7 +36,7 @@
 </head>
 <body>
 <div class="alert" id="alertBanner">
-    <p>If CV doesn't load, <a href="/cv.pdf" target="_blank">click here to view it</a>.</p>
+    <p style="margin: 0;">If CV doesn't load, <a href="/cv.pdf" target="_blank">click here to view it</a>.</p>
     <button onclick="closeAlert()">×</button>
 </div>
 <iframe src="/cv.pdf" style="width: 100%; height: 100vh; border: none;">
